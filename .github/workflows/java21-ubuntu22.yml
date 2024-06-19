@@ -22,19 +22,10 @@ env:
   ART_FOLDER: "java21-ubuntu22"
   JF_USER: "nadeem.khalid@regions.com"
 
-  BASE_IMAGE_TAG: "v2.0.0"
-  BASE_IMAGE_NAME: "dotnet8-base-image"
+  IMAGE_21: "java-21"
+  IMAGE_21_TAG: "v2.1.0"
 
-  IMAGE_RUNTIME: "dotnet8-runtime"
-  IMAGE_RUNTIME_TAG: "v2.1.0"
-
-  IMAGE_SDK: "dotnet8-sdk"
-  IMAGE_SDK_TAG: "v2.1.0"
-
-  IMAGE_ASP: "dotnet8-asp"
-  IMAGE_ASP_TAG: "v2.1.0"
-
-  PROJECT_NAME: "dotnet8-ubuntu22"
+  PROJECT_NAME: "hava21-ubuntu22"
 
 jobs:
   build-push-base-images:
@@ -64,8 +55,8 @@ jobs:
       - name: build docker sdk image
         run: |
           docker build -f ./${{env.PROJECT_NAME}}/Dockerfile \
-                -t ${{env.IMAGE_SDK}} \
-                --build-arg IMAGE_NAME="${{env.IMAGE_SDK}}" .
+                -t ${{env.IMAGE_21}} \
+                --build-arg IMAGE_NAME="${{env.IMAGE_21}}" .
           docker images
-          docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
+          docker tag ${{ env.IMAGE_21}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_21}}:${{ env.IMAGE_21_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_21}}:${{ env.IMAGE_21_TAG}}
