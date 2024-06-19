@@ -5,7 +5,7 @@ RUN apt-get update \
     && apt-get install -y \
     curl \
     wget \
-    apt-transport-https
+    apt-transport-https 
     #lsb-release \
     #gnupg
 
@@ -16,11 +16,12 @@ RUN dpkg -i packages-microsoft-prod.deb \
 
 
 # check for arguments
-ARG DOTNET_TYPE
-RUN echo "type is --> "${DOTNET_TYPE}
+ARG IMAGE_NAME
+RUN echo "image name is --> "${IMAGE_NAME}
 
 RUN echo "************** Install .NET SDK **************"
 RUN apt-get update && \
     apt-get install aspnetcore-runtime-8.0 -y --no-install-recommends
 
-LABEL type=${DOTNET_TYPE}
+
+LABEL type=${IMAGE_NAME}

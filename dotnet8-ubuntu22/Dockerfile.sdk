@@ -17,11 +17,12 @@ RUN dpkg -i packages-microsoft-prod.deb \
 
 # check for arguments
 ARG IMAGE_NAME
-RUN echo "type is --> "${IMAGE_NAME}
+RUN echo "image name is --> "${IMAGE_NAME}
 
 RUN echo "************** Install .NET SDK **************"
 RUN apt-get update && \
     apt-get install dotnet-sdk-8.0 -y --no-install-recommends
 
 
-LABEL type=${IMAGE_NAME}
+LABEL "type"="${IMAGE_NAME}"
+LABEL "nadeem"="khalid"

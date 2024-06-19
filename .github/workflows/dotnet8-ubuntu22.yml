@@ -18,7 +18,7 @@ env:
   message: "This is a test message"
 
   ART_REGISTORY: "https://rgnadeem.jfrog.io"
-  ART_REPO: "local-docker/nk"
+  ART_REPO: "local-docker"
   ART_FOLDER: "dotnet8-ubuntu22"
   JF_USER: "nadeem.khalid@regions.com"
 
@@ -30,6 +30,9 @@ env:
 
   IMAGE_SDK: "dotnet8-sdk"
   IMAGE_SDK_TAG: "v2.1.0"
+
+  IMAGE_ASP: "dotnet8-asp"
+  IMAGE_ASP_TAG: "v2.1.0"
 
   PROJECT_NAME: "dotnet8-ubuntu22"
 
@@ -60,7 +63,6 @@ jobs:
 
       - name: build docker sdk image
         run: |
-          image_name="dotnet-sdk-8-ubuntu22"
           docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.sdk \
                 -t ${{env.IMAGE_SDK}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_SDK}}" .
@@ -68,4 +70,20 @@ jobs:
           docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
           docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
 
-  
+      - name: build docker runtime image
+        run: |     
+          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.runtime \
+                -t ${{env.IMAGE_RUNTIME}} \
+                --build-arg IMAGE_NAME="${{env.IMAGE_RUNTIME}}" .
+          docker images
+          docker tag ${{ env.IMAGE_RUNTIME}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
+
+      - name: build docker aspnetcore image
+        run: |      
+          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.aspnet \
+                -t ${{env.IMAGE_ASP}} \
+                --build-arg IMAGE_NAME="${{env.IMAGE_ASP}}" .
+          docker images
+          docker tag ${{ env.IMAGE_ASP}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
