@@ -85,5 +85,5 @@ jobs:
                 -t ${{env.IMAGE_ASP}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_ASP}}" .
           docker images
-          docker tag ${{ env.IMAGE_ASP}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
+          docker tag ${{ env.IMAGE_ASP}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/nk/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/nk/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
