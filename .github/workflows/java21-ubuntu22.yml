@@ -1,6 +1,9 @@
-name: dotnet 8 - ubuntu 22
+name: java 21 - ubuntu 22
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       publish:
@@ -16,7 +19,7 @@ env:
 
   ART_REGISTORY: "rgnadeem.jfrog.io"
   ART_REPO: "local-docker"
-  ART_FOLDER: "dotnet8-ubuntu22"
+  ART_FOLDER: "java21-ubuntu22"
   JF_USER: "nadeem.khalid@regions.com"
 
   BASE_IMAGE_TAG: "v2.0.0"
@@ -60,27 +63,9 @@ jobs:
 
       - name: build docker sdk image
         run: |
-          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.sdk \
+          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile \
                 -t ${{env.IMAGE_SDK}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_SDK}}" .
           docker images
           docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
           docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
-
-      - name: build docker runtime image
-        run: |     
-          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.runtime \
-                -t ${{env.IMAGE_RUNTIME}} \
-                --build-arg IMAGE_NAME="${{env.IMAGE_RUNTIME}}" .
-          docker images
-          docker tag ${{ env.IMAGE_RUNTIME}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
-
-      - name: build docker aspnetcore image
-        run: |      
-          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.aspnet \
-                -t ${{env.IMAGE_ASP}} \
-                --build-arg IMAGE_NAME="${{env.IMAGE_ASP}}" .
-          docker images
-          docker tag ${{ env.IMAGE_ASP}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/nk/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/nk/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
