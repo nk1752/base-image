@@ -1,0 +1,18 @@
+FROM https://rgnadeem.jfrog.io/local-docker/dotnet8-base-image:v2.0.0
+
+RUN echo "**************** Add Microsoft package signing key ***************"
+RUN curl https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb --output packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb \
+    && rm packages-microsoft-prod.deb
+
+
+# check for arguments
+ARG IMAGE_NAME
+RUN echo "type is --> "${IMAGE_NAME}
+
+RUN echo "************** Install .NET SDK **************"
+RUN apt-get update && \
+    apt-get install dotnet-runtime-8.0 -y --no-install-recommends
+
+
+LABEL type=${IMAGE_NAME}

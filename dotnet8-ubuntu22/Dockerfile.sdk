@@ -1,0 +1,27 @@
+FROM ubuntu:22.04 as base
+
+# install curl, wget, and other tools
+RUN apt-get update \
+    && apt-get install -y \
+    curl \
+    wget \
+    apt-transport-https 
+    #lsb-release \
+    #gnupg
+
+RUN echo "**************** Add Microsoft package signing key ***************"
+RUN curl https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb --output packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb \
+    && rm packages-microsoft-prod.deb
+
+
+# check for arguments
+ARG IMAGE_NAME
+RUN echo "type is --> "${IMAGE_NAME}
+
+RUN echo "************** Install .NET SDK **************"
+RUN apt-get update && \
+    apt-get install dotnet-sdk-8.0 -y --no-install-recommends
+
+
+LABEL type=${IMAGE_NAME}
