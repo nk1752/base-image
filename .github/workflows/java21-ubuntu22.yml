@@ -25,7 +25,7 @@ env:
   IMAGE_21: "java-21"
   IMAGE_21_TAG: "v2.1.0"
 
-  PROJECT_NAME: "hava21-ubuntu22"
+  PROJECT_NAME: "java21-ubuntu22"
 
 jobs:
   build-push-base-images:
