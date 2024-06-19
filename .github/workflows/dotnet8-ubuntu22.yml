@@ -65,7 +65,7 @@ jobs:
                 -t ${{env.IMAGE_SDK}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_SDK}}" .
           docker images
-          docker tag ${{ env.IMAGE_SDK}} rgnadeem.jfrog.io/local-docker/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
-          docker push rgnadeem.jfrog.io/local-docker/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
+          docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/nk/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/nk/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
 
   
