@@ -17,7 +17,7 @@ on:
 env:
   message: "This is a test message"
 
-  ART_REGISTORY: "https://rgnadeem.jfrog.io"
+  ART_REGISTORY: "rgnadeem.jfrog.io"
   ART_REPO: "local-docker"
   ART_FOLDER: "dotnet8-ubuntu22"
   JF_USER: "nadeem.khalid@regions.com"
