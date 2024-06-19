@@ -67,8 +67,8 @@ jobs:
                 -t ${{env.IMAGE_SDK}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_SDK}}" .
           docker images
-          docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
+          docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
 
       - name: build docker runtime image
         run: |     
@@ -76,8 +76,8 @@ jobs:
                 -t ${{env.IMAGE_RUNTIME}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_RUNTIME}}" .
           docker images
-          docker tag ${{ env.IMAGE_RUNTIME}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
+          docker tag ${{ env.IMAGE_RUNTIME}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_RUNTIME}}:${{ env.IMAGE_RUNTIME_TAG}}
 
       - name: build docker aspnetcore image
         run: |      
@@ -85,5 +85,5 @@ jobs:
                 -t ${{env.IMAGE_ASP}} \
                 --build-arg IMAGE_NAME="${{env.IMAGE_ASP}}" .
           docker images
-          docker tag ${{ env.IMAGE_ASP}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
+          docker tag ${{ env.IMAGE_ASP}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_ASP}}:${{ env.IMAGE_ASP_TAG}}
