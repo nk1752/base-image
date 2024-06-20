@@ -9,18 +9,12 @@ RUN apt-get update \
     #lsb-release \
     #gnupg
 
-RUN apt-get install -y openjdk-21-jdk && \
-    apt-get install -y maven
+RUN apt-get install -y openjdk-21-jre-headless && apt-get update
 
 
 # check for arguments
 ARG IMAGE_NAME
 RUN echo "image name is --> "${IMAGE_NAME}
-
-RUN echo "************** Install .NET SDK **************"
-RUN apt-get update && \
-    apt-get install dotnet-sdk-8.0 -y --no-install-recommends
-
 
 LABEL "type"="${IMAGE_NAME}"
 LABEL "nadeem"="khalid"

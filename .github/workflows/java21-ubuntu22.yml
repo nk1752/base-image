@@ -22,8 +22,10 @@ env:
   ART_FOLDER: "java21-ubuntu22"
   JF_USER: "nadeem.khalid@regions.com"
 
-  IMAGE_21: "java-21"
-  IMAGE_21_TAG: "v2.1.0"
+  IMAGE_JDK: "java-21-jdk"
+  IMAGE_JDK_TAG: "v2.1.0"
+  IMAGE_JRE: "java-21-jre"
+  IMAGE_JRE_TAG: "v2.1.0"
 
   PROJECT_NAME: "java21-ubuntu22"
 
@@ -52,11 +54,20 @@ jobs:
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
 
-      - name: build docker sdk image
+      - name: build docker java 21 jdk image
         run: |
-          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile \
-                -t ${{env.IMAGE_21}} \
-                --build-arg IMAGE_NAME="${{env.IMAGE_21}}" .
+          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.jdk \
+                -t ${{env.IMAGE_JDK}} \
+                --build-arg IMAGE_NAME="${{env.IMAGE_JDK}}" .
           docker images
-          docker tag ${{ env.IMAGE_21}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_21}}:${{ env.IMAGE_21_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_21}}:${{ env.IMAGE_21_TAG}}
+          docker tag ${{ env.IMAGE_JDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_JDK}}:${{ env.IMAGE_JDK_TAG}}
+          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_JDK}}:${{ env.IMAGE_JDK_TAG}}
+
+      - name: build docker java 21 jre image
+        run: |
+          docker build -f ./${{env.PROJECT_NAME}}/Dockerfile.jre \
+                -t ${{env.IMAGE_JRE}} \
+                --build-arg IMAGE_NAME="${{env.IMAGE_JRE}}" .
+          docker images
+          docker tag ${{ env.IMAGE_JRE}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_JRE}}:${{ env.IMAGE_JRE_TAG}}
+          docker push ${{ env.IMAGE_JRE}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_JRE}}:${{ env.IMAGE_JRE_TAG}}
