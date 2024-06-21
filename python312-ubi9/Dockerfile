@@ -1,13 +1,10 @@
 FROM registry.access.redhat.com/ubi9/ubi:latest
 
+RUN echo "******* update *******"
 RUN yum update -y
-RUN yum search python3
-RUN yum install -y python3
-RUN yum install -y python3-pip
-RUN yum install -y python3-devel
-RUN yum install -y gcc
-RUN yum install -y make
 
-RUN pip3 install --upgrade pip
-
+RUN echo "******* check os version *******"
 RUN cat /etc/os-release
+
+RUN echo "******* check python version *******"
+RUN python3 --version
