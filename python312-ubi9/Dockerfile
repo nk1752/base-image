@@ -1,8 +1,8 @@
 FROM registry.access.redhat.com/ubi9/ubi:latest
 
 # Install dependencies
-RUN dnf update -y && \
-    dnf install -y curl gcc openssl-devel bzip2-devel libffi-devel make
+RUN yum update -y && \
+    yum install -y curl gcc openssl-devel bzip2-devel libffi-devel make
 
 # check os version
 RUN cat /etc/os-release
