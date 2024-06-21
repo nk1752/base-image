@@ -3,11 +3,6 @@ FROM registry.access.redhat.com/ubi9/ubi:latest
 RUN echo "******* update *******"
 RUN yum update -y
 
-RUN echo "******* install tools *******"
-RUN yum install -y curl unzip tar gzip bzip2 && yum clean all
-
-RUN yum update -y
-
 RUN echo "******* check os version *******"
 RUN cat /etc/os-release
 
