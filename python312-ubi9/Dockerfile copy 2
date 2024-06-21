@@ -1,0 +1,6 @@
+FROM registry.access.redhat.com/ubi9/ubi:latest
+
+RUN yum update -y
+
+
+RUN cat /etc/os-release
