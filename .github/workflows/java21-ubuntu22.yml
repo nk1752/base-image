@@ -1,9 +1,6 @@
 name: java 21 - ubuntu 22
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       publish:
