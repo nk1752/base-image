@@ -11,7 +11,11 @@ RUN echo "******* check available python versions *******"
 RUN yum list python3*
 
 RUN echo "******* install python 3.12 *******"
-RUN yum install -y python3.12
+RUN yum install -y python3.12.x86_64
+
+# make python3.12 as default python
+RUN echo "******* make python3.12 as default python *******"
+RUN alternatives --set python /usr/bin/python3.12
 
 RUN echo "******* check python version *******"
-RUN python3 --version
+RUN python --version
