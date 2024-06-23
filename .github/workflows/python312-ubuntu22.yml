@@ -15,17 +15,13 @@ on:
           - "true"
           - "false"
 env:
-  message: "This is a test message"
-
   ART_REGISTORY: "rgnadeem.jfrog.io"
-  ART_REPO: "local-docker"
-  ART_FOLDER: "python312-ubuntu22"
+  PROJECT_NAME: "python312-ubuntu22"
+  ART_REPO: "local-docker/nk/${ $PROJECT_NAME }"
   JF_USER: "nadeem.khalid@regions.com"
 
-  IMAGE_PYTHON: "python-3.12"
-  IMAGE_PYTHON_TAG: "v3.12.0"
-
-  PROJECT_NAME: "python312-ubuntu22"
+  IMAGE_PYTHON: "${ $PROJECT_NAME }"
+  IMAGE_PYTHON_TAG: "v1.1.0"
 
 jobs:
   build-push-base-images:
@@ -40,10 +36,8 @@ jobs:
     steps:
       - name: env
         run: |
-          echo ${{ env.message }}
           echo ${{ env.ART_REGISTORY }}
           echo ${{ env.ART_REPO }}
-          echo ${{ env.ART_FOLDER }}
           echo ${{ env.JF_USER }}
           echo ${{ env.IMAGE_PYTHON }}
           echo ${{ env.IMAGE_PYTHON_TAG }}

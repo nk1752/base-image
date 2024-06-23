@@ -23,7 +23,7 @@ env:
   JF_USER: "nadeem.khalid@regions.com"
 
   IMAGE_PYTHON: "python-3.12"
-  IMAGE_PYTHON_TAG: "v3.12.0"
+  IMAGE_PYTHON_TAG: "v1.0.0"
 
   PROJECT_NAME: "python312-ubi9"
 
