@@ -1,0 +1,43 @@
+name: play
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  ART_REGISTORY: "rgnadeem.jfrog.io"
+  PROJECT_NAME: "python312-ubuntu22"
+  ART_REPO: "local-docker/nk/${ $PROJECT_NAME }"
+  JF_USER: "nadeem.khalid@regions.com"
+
+  WORKFLOW_MSG: "This is a workflow message"
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+
+    env:
+      JOB_MSG: "This is a job message"
+
+    permissions:
+      contents: read
+      pull-requests: write
+      packages: write
+      id-token: write
+
+    steps:
+      - name: env
+        env:
+          STEP_MSG: "This is a step message"
+          COMBO: ${{ env.WORKFLOW_MSG }} - ${{ env.JOB_MSG }} - ${{ env.STEP_MSG }}
+          NEW_VAR: ${{ env.WORKFLOW_MSG }}/${{ env.JOB_MSG }}/${{ env.STEP_MSG }}
+        run: |
+          echo "workflow --> ${{ env.WORKFLOW_MSG }}"
+          echo "job --> ${{ env.JOB_MSG }}"
+          echo "step --> ${{ env.STEP_MSG }}"
+          echo "combo --> ${{ env.COMBO }}"
+          echo "new var --> ${{ env.NEW_VAR }}"
+          
+    

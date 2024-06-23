@@ -1,9 +1,7 @@
 name: python 3.12 - ubi9
 
 on:
-  push:
-    branches:
-      - main
+  
   workflow_dispatch:
     inputs:
       publish:
