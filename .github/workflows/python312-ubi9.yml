@@ -16,6 +16,7 @@ env:
   PROJECT_NAME: "python312-ubi9"
 
   ART_REGISTORY: "rgnadeem.jfrog.io"
+  ART_GROUP: "nk"
   JF_USER: "nadeem.khalid@regions.com"
  
 
@@ -53,7 +54,7 @@ jobs:
 
       - name: build docker python-3.12 image
         env:
-          ART_REPO: ${{env.ART_REGISTORY}}/${{env.PROJECT_NAME}}
+          ART_REPO: ${{env.ART_GROUP}}/${{env.PROJECT_NAME}}
           IMAGE_PYTHON: "python-3.12"
           IMAGE_PYTHON_TAG: "v1.0.0"
         run: |
