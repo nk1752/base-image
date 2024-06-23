@@ -13,17 +13,11 @@ on:
           - "true"
           - "false"
 env:
-  message: "This is a test message"
+  PROJECT_NAME: "python312-ubi9"
 
   ART_REGISTORY: "rgnadeem.jfrog.io"
-  ART_REPO: "local-docker/nk"
-  ART_FOLDER: "python312-ubi9"
   JF_USER: "nadeem.khalid@regions.com"
-
-  IMAGE_PYTHON: "python-3.12"
-  IMAGE_PYTHON_TAG: "v1.0.0"
-
-  PROJECT_NAME: "python312-ubi9"
+ 
 
 jobs:
   build-push-base-images:
@@ -36,16 +30,6 @@ jobs:
       id-token: write
 
     steps:
-      - name: env
-        run: |
-          echo ${{ env.message }}
-          echo ${{ env.ART_REGISTORY }}
-          echo ${{ env.ART_REPO }}
-          echo ${{ env.ART_FOLDER }}
-          echo ${{ env.JF_USER }}
-          echo ${{ env.IMAGE_PYTHON }}
-          echo ${{ env.IMAGE_PYTHON_TAG }}
-          echo ${{ env.PROJECT_NAME }}
 
 
       - name : Set up python
@@ -68,6 +52,10 @@ jobs:
           registry: ${{ env.ART_REGISTORY }}
 
       - name: build docker python-3.12 image
+        env:
+          ART_REPO: ${{env.ART_REGISTORY}}/${{env.PROJECT_NAME}}
+          IMAGE_PYTHON: "python-3.12"
+          IMAGE_PYTHON_TAG: "v1.0.0"
         run: |
           docker build -f ./${{env.PROJECT_NAME}}/Dockerfile \
                 -t ${{env.IMAGE_PYTHON}} \
