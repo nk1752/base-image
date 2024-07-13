@@ -1,9 +1,8 @@
 name: dotnet8 -> ubuntu22
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    
 env:
   ART_REGISTORY: "appli.jfrog.io"
   ART_REPO: "local-docker"
@@ -20,6 +19,7 @@ jobs:
       id-token: write
 
     steps:
+      
       - name: checkout
         uses: actions/checkout@v4.1.6
 

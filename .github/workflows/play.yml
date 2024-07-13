@@ -1,6 +1,9 @@
 name: play
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
@@ -54,5 +57,15 @@ jobs:
 
           # display branch name
           echo "BRANCH_NAME --> ${{ github.ref }}"
+
+      - name: build vars
+        run: |
+          echo "BUILD_NUMBER=$BUILD_RUN_NUMBER" >> $GITHUB_ENV
+          echo "GITHUB_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+      - name: display vars
+        run: |
+          echo "GITHUB_BRANCH=${{ env.GITHUB_BRANCH }}"
+          echo "BUILD_NUMBER=${{ env.BUILD_NUMBER }}"
           
     
