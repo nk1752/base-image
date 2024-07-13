@@ -51,6 +51,6 @@ jobs:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
           tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
-          push: false
+          push: true
         env:
           DOCKER_BUILDKIT: 1
