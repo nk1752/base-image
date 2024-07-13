@@ -50,10 +50,13 @@ jobs:
             type=ref,event=tag
             # pull request event
             type=ref,event=pr
+            type=raw,22.04.0
+            type=raw,latest
           labels: |
             org.opencontainers.image.title=ubuntu
             org.opencontainers.image.description=ubuntu base image
             org.opencontainers.image.source=nadeem
+            maintainer=nadeem
 
 
 
@@ -70,8 +73,8 @@ jobs:
           ART_FOLDER: base-images
           BASE_IMAGE_NAME: ubuntu
           # list of tags to be used for the image
-          tags: $("22.04" "ubuntu22" "latest")
-          labels: $(maintainer="nadeem") $(org.opencontainers.image.title="ubuntu") $(org.opencontainers.image.description="ubuntu base image") $(org.opencontainers.image.source="nadeem")
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
           build_args: $(IMAGE_TYPE=base)
 
   
