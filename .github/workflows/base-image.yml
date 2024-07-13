@@ -7,7 +7,7 @@ on:
 env:
   message: "This is a test message"
 
-  ART_REGISTORY: "apli.jfrog.io"
+  ART_REGISTORY: "appli.jfrog.io"
   ART_REPO: "local-docker"
   ART_FOLDER: "dotnet8-ubuntu22"
   JF_USER: "nk1752@outlook.com"
@@ -51,7 +51,7 @@ jobs:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
           #tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
-          tags: apli.jfrog.io/nk-docker/ubuntu22-base-image:v2.0.0
+          tags: appli.jfrog.io/nk-docker/ubuntu22-base-image:v2.0.0
           push: true
         env:
           DOCKER_BUILDKIT: 1
