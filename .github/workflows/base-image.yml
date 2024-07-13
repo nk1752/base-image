@@ -42,7 +42,7 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v5.5.1
         with:
-          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/ubuntu:v22.4.0
+          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/ubuntu:22.4.0
           tags: |
             # branch event
             type=ref,event=branch
@@ -63,7 +63,7 @@ jobs:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
           tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
-          labels: OpehShift="ubuntu22 base image" ALM="dotnet8-sdk"
+          labels: OpehShift="ubuntu22" ALM="dotnet8-sdk"
           push: true
         env:
           DOCKER_BUILDKIT: 1
