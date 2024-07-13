@@ -10,7 +10,7 @@ env:
   JF_USER: "nk1752@outlook.com"
 
 jobs:
-  build-push-base-images:
+  ubuntu-base-image:
     runs-on: ubuntu-latest
 
     permissions:
@@ -44,6 +44,46 @@ jobs:
           push: true
         env:
           DOCKER_BUILDKIT: 1
-          ART_FOLDER: alm/core-images
+          ART_FOLDER: alm/base-images
           BASE_IMAGE_NAME: ubuntu
           BASE_IMAGE_TAG: v22.4.0
+
+  
+  dotnet8-base-images:
+    runs-on: ubuntu-latest
+    needs: ubuntu-base-image
+
+    permissions:
+      contents: read
+      pull-requests: write
+      packages: write
+      id-token: write
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4.1.6
+
+        # build docker image from Dockerfile
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.4.0
+
+      - name: Docker login to Jfrog
+        uses: docker/login-action@v3.2.0
+        with:
+          username: ${{ env.JF_USER }}
+          password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
+          registry: ${{ env.ART_REGISTORY }}
+
+      - name: build dotnet8 sdk image
+        uses: docker/build-push-action@v6.3.0
+        with:
+          context: .
+          file: ./dockerfiles/Dockerfile.dotnet8-sdk
+          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
+          #tags: appli.jfrog.io/nk-docker/ubuntu22-base-image:v2.0.0
+          push: true
+        env:
+          DOCKER_BUILDKIT: 1
+          ART_FOLDER: alm/dotnet
+          BASE_IMAGE_NAME: dotnet8-sdk
+          BASE_IMAGE_TAG: v8
