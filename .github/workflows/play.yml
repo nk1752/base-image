@@ -35,5 +35,24 @@ jobs:
           echo "step --> ${{ env.STEP_MSG }}"
           echo "combo --> ${{ env.COMBO }}"
           echo "new var --> ${{ env.NEW_VAR }}"
+
+          # display github context
+          echo "GITHUB_REPOSITORY --> ${{ github.repository }}"
+          echo "GITHUB_REPOSITORY_OWNER --> ${{ github.repository_owner }}"
+          echo "GITHUB_RUN_ID --> ${{ github.run_id }}"
+          echo "GITHUB_RUN_NUMBER --> ${{ github.run_number }}"
+          echo "GITHUB_ACTOR --> ${{ github.actor }}"
+          echo "GITHUB_WORKFLOW --> ${{ github.workflow }}"
+          echo "GITHUB_HEAD_REF --> ${{ github.head_ref }}"
+          echo "GITHUB_BASE_REF --> ${{ github.base_ref }}"
+          echo "GITHUB_EVENT_NAME --> ${{ github.event_name }}"
+          echo "GITHUB_EVENT_PATH --> ${{ github.event_path }}"
+          echo "GITHUB_WORKSPACE --> ${{ github.workspace }}"
+          echo "GITHUB_SHA --> ${{ github.sha }}"
+          echo "GITHUB_REF --> ${{ github.ref }}"
+          echo "GITHUB_TRIGGER_ACTOR --> ${{ github.triggering_actor }}"
+
+          # display branch name
+          echo "BRANCH_NAME --> ${{ github.ref }}"
           
     
