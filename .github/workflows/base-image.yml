@@ -87,3 +87,29 @@ jobs:
           ART_FOLDER: alm/dotnet
           BASE_IMAGE_NAME: dotnet8-sdk
           BASE_IMAGE_TAG: v8
+
+      - name: build dotnet8 runtime image
+        uses: docker/build-push-action@v6.3.0
+        with:
+          context: .
+          file: ./dockerfiles/Dockerfile.dotnet8-tuntime
+          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
+          push: true
+        env:
+          DOCKER_BUILDKIT: 1
+          ART_FOLDER: alm/dotnet
+          BASE_IMAGE_NAME: dotnet8-runtime
+          BASE_IMAGE_TAG: v8
+
+      - name: build dotnet8 aspnet image
+        uses: docker/build-push-action@v6.3.0
+        with:
+          context: .
+          file: ./dockerfiles/Dockerfile.dotnet8-aspnet
+          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
+          push: true
+        env:
+          DOCKER_BUILDKIT: 1
+          ART_FOLDER: alm/dotnet
+          BASE_IMAGE_NAME: dotnet8-aspnet
+          BASE_IMAGE_TAG: v8

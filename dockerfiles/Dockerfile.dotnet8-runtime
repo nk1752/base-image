@@ -1,0 +1,26 @@
+FROM appli.jfrog.io/local-docker/alm/base-images/ubuntu:v22.4.0
+
+# install curl, wget, and other tools
+RUN apt-get update \
+    && apt-get install -y \
+    apt-transport-https 
+    #lsb-release \
+    #gnupg
+
+RUN echo "**************** Add Microsoft package signing key ***************"
+RUN curl https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb --output packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb \
+    && rm packages-microsoft-prod.deb
+
+
+# check for arguments
+ARG IMAGE_NAME
+RUN echo "image name is --> "${IMAGE_NAME}
+
+RUN echo "************** Install .NET SDK **************"
+RUN apt-get update && \
+    apt-get install dotnet-runtime-8.0 -y --no-install-recommends
+
+
+LABEL "type"="${IMAGE_NAME}"
+LABEL "nadeem"="khalid"
