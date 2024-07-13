@@ -2,10 +2,10 @@ name: dotnet8 -> ubuntu22
 
 on:
   workflow_dispatch:
-    
+
 env:
   ART_REGISTORY: "appli.jfrog.io"
-  ART_REPO: "local-docker"
+  ART_REPO: "local-docker/alm"
   JF_USER: "nk1752@outlook.com"
 
 jobs:
@@ -34,17 +34,33 @@ jobs:
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
 
+      # extract metadata from Git reference and github events
+      - name: metadata
+        id: metadata
+        uses: docker/metadata-action@v5.0.0
+        with:
+          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/ubuntu:v22.4.0
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha,ref=refs.heads.main
+            type=raw,${{ github.run_number }}
+          labels: |
+            org.opencontainers.image.title=ubuntu
+            org.opencontainers.image.description=ubuntu base image
+            org.opencontainers.image.source=nadeem
+
+
       - name: build dotnet8 base image
         uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
           tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
-          #tags: appli.jfrog.io/nk-docker/ubuntu22-base-image:v2.0.0
           push: true
         env:
           DOCKER_BUILDKIT: 1
-          ART_FOLDER: alm/base-images
+          ART_FOLDER: base-images
           BASE_IMAGE_NAME: ubuntu
           BASE_IMAGE_TAG: v22.4.0
 
@@ -82,9 +98,10 @@ jobs:
           tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
           #tags: appli.jfrog.io/nk-docker/ubuntu22-base-image:v2.0.0
           push: true
+          labels: OpehShift="ubuntu22 base image" ALM="dotnet8-sdk"
         env:
           DOCKER_BUILDKIT: 1
-          ART_FOLDER: alm/dotnet
+          ART_FOLDER: dotnet
           BASE_IMAGE_NAME: dotnet8-sdk
           BASE_IMAGE_TAG: v8
 
@@ -106,10 +123,10 @@ jobs:
         with:
           context: .
           file: ./dockerfiles/Dockerfile.dotnet8-aspnet
-          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
+          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
           push: true
         env:
           DOCKER_BUILDKIT: 1
-          ART_FOLDER: alm/dotnet
+          ART_FOLDER: dotnet
           BASE_IMAGE_NAME: dotnet8-aspnet
           BASE_IMAGE_TAG: v8
