@@ -44,15 +44,17 @@ jobs:
         with:
           images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/ubuntu:v22.4.0
           tags: |
-            type=ref,event=${{ github.event_name }}
+            # branch event
+            type=ref,event=branch
+            # tag event
             type=ref,event=tag
-            type=sha,ref=refs.heads.main
-            type=raw,${{ github.run_number }}
+            # pull request event
+            type=ref,event=pr
           labels: |
             org.opencontainers.image.title=ubuntu
             org.opencontainers.image.description=ubuntu base image
             org.opencontainers.image.source=nadeem
-            
+
 
 
       - name: build dotnet8 base image
