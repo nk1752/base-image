@@ -29,15 +29,12 @@ jobs:
     steps:
       - name: env
         env:
-          STEP_MSG: "This is a step message"
-          COMBO: ${{ env.WORKFLOW_MSG }} - ${{ env.JOB_MSG }} - ${{ env.STEP_MSG }}
-          NEW_VAR: ${{ env.WORKFLOW_MSG }}/${{ env.JOB_MSG }}/${{ env.STEP_MSG }}
+          COMBO: ${{ env.WORKFLOW_MSG }} - ${{ env.JOB_MSG }} - hello
+          NEW_VAR: ${{ env.WORKFLOW_MSG }}/${{ env.JOB_MSG }}/hello
         run: |
-          echo "workflow --> ${{ env.WORKFLOW_MSG }}"
-          echo "job --> ${{ env.JOB_MSG }}"
-          echo "step --> ${{ env.STEP_MSG }}"
-          echo "combo --> ${{ env.COMBO }}"
-          echo "new var --> ${{ env.NEW_VAR }}"
+          echo "step --> $env.STEP_MSG"
+          echo "combo --> $COMBO"
+          echo "new var --> $NEW_VAR"
 
           # display github context
           echo "GITHUB_REPOSITORY --> ${{ github.repository }}"
@@ -61,7 +58,7 @@ jobs:
       - name: build vars
         run: |
           echo "BUILD_NUMBER=$BUILD_RUN_NUMBER" >> $GITHUB_ENV
-          echo "GITHUB_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "GITHUB_BRANCH=${GITHUB_REF#refs/heads/}" > $GITHUB_ENV
 
       - name: display vars
         run: |
