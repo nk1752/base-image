@@ -1,9 +1,7 @@
 name: play
 
 on:
-  push:
-    branches:
-      - main
+ 
   workflow_dispatch:
 
 env:
