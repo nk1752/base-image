@@ -67,7 +67,7 @@ jobs:
           ART_FOLDER: base-images
           BASE_IMAGE_NAME: ubuntu
           # list of tags to be used for the image
-          tags: latest,24.04
+          tags: "24.04"
           
 
   
