@@ -45,11 +45,12 @@ jobs:
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
 
-      - name: build docker sdk image
-        run: |
-          docker build -f ./dockerfiles/Dockerfile.dotnet8-ubuntu22 \
-                -t ${{env.IMAGE_SDK}} \
-                --build-arg IMAGE_NAME="${{env.IMAGE_SDK}}" .
-          docker images
-          docker tag ${{ env.IMAGE_SDK}} ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
-          docker push ${{env.ART_REGISTORY}}/${{env.ART_REPO}}/${{ env.IMAGE_SDK}}:${{ env.IMAGE_SDK_TAG}}
+      - name: build dotnet8 base image
+        uses: docker/build-push-action@v6.3.0
+        with:
+          context: .
+          file: ./dotnet8-ubuntu22/Dockerfile
+          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
+          push: false
+        env:
+          DOCKER_BUILDKIT: 1
