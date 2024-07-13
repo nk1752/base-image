@@ -44,6 +44,6 @@ jobs:
           push: true
         env:
           DOCKER_BUILDKIT: 1
-          ART_FOLDER: alm
-          BASE_IMAGE_NAME: ubuntu22
-          BASE_IMAGE_TAG: v1.0.0
+          ART_FOLDER: alm/core-images
+          BASE_IMAGE_NAME: ubuntu
+          BASE_IMAGE_TAG: v22.4.0
