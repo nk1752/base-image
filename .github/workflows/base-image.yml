@@ -62,15 +62,17 @@ jobs:
         with:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
-          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
+          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.tags }}
           labels: OpehShift="ubuntu22" ALM="dotnet8-sdk"
           push: true
         env:
           DOCKER_BUILDKIT: 1
           ART_FOLDER: base-images
           BASE_IMAGE_NAME: ubuntu
-          BASE_IMAGE_TAG: "22.4.0"
-          BASE_IMAGE_LABELS: ${{ steps.metadata.outputs.labels }}
+          # list of tags to be used for the image
+          tags: $("22.04" "ubuntu22" "latest")
+          labels: $(maintainer="nadeem") $(org.opencontainers.image.title="ubuntu") $(org.opencontainers.image.description="ubuntu base image") $(org.opencontainers.image.source="nadeem")
+          build_args: $(IMAGE_TYPE=base)
 
   
   dotnet8-base-images:
