@@ -67,8 +67,8 @@ jobs:
           ART_FOLDER: base-images
           BASE_IMAGE_NAME: ubuntu
           # list of tags to be used for the image
-          tags: ${{ steps.metadata.outputs.tags }}
-          labels: ${{ steps.metadata.outputs.labels }}
+          tags: $(22.04.0,latest)
+          labels: $(maintainer=nadeem)
           build_args: $(IMAGE_TYPE=base)
 
   
