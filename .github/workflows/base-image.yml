@@ -69,7 +69,7 @@ jobs:
           DOCKER_BUILDKIT: 1
           ART_FOLDER: base-images
           BASE_IMAGE_NAME: ubuntu
-          BASE_IMAGE_TAG: v22.4.0 22.4.0
+          BASE_IMAGE_TAG: v22.4.0
           BASE_IMAGE_LABELS: ${{ steps.metadata.outputs.labels }}
 
   
