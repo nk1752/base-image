@@ -44,6 +44,7 @@ jobs:
           images: |
             ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
             ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
+            ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/8-sdk:8
           tags: |
             # branch event
             type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
