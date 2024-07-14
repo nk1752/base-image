@@ -48,7 +48,7 @@ jobs:
             ${{ env.IMAGE }}:22.4
             ${{ env.IMAGE }}:latest
           labels: |
-            OpehShift="ubuntu22"
+            OpehShift=ubuntu22
             ALM="dotnet8-sdk"
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
@@ -91,9 +91,7 @@ jobs:
             OpehShift="ubuntu22"
             ALM="dotnet8-sdk"
         env:
-          ART_FOLDER: dotnet
-          IMAGE_NAME: dotnet8-sdk
-          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/dotnet8-sdk
           
         # ************ runtime image ************
       - name: build dotnet8 runtime image
@@ -106,9 +104,7 @@ jobs:
             ${{ env.IMAGE }}:8-runtime
             ${{ env.IMAGE }}:dotnet8-runtime
         env:
-          ART_FOLDER: dotnet
-          IMAGE_NAME: dotnet8-runtime
-          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/dotnet8-runtime
 
         # ************ aspnet image ************
       - name: build dotnet8 aspnet image
@@ -121,8 +117,5 @@ jobs:
             ${{ env.IMAGE }}:8-aspnet
             ${{ env.IMAGE }}:dotnet8-aspnet
         env:
-          DOCKER_BUILDKIT: 1
-          ART_FOLDER: dotnet
-          IMAGE_NAME: dotnet8-aspnet
-          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/dotnet8-aspnet
           
