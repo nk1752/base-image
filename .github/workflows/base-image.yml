@@ -51,9 +51,7 @@ jobs:
             OpehShift="ubuntu22"
             ALM="dotnet8-sdk"
         env:
-          ART_FOLDER: base-images
-          IMAGE_NAME: ubuntu
-          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
                   
   dotnet8-base-images:
     runs-on: ubuntu-latest
