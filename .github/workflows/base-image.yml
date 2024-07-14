@@ -37,42 +37,31 @@ jobs:
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
 
-      # extract metadata from Git reference and github events
-      - name: metadata
+      - name: extract metadata
         id: metadata
-        uses: docker/metadata-action@v5.5.1
+        uses: docker/metadata-action@v5.5.0
         with:
-          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.4.0
+          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}
           tags: |
-            type=raw,22.04.0
-            type=raw,latest
+            "22.4"
+            "latest"
           labels: |
-            org.opencontainers.image.title=ubuntu
-            org.opencontainers.image.description=ubuntu base image
-            org.opencontainers.image.source=nadeem
-            maintainer=nadeem
+            OpehShift="ubuntu22"
+            ALM="dotnet8-sdk"
 
-
+        env:
+          ART_FOLDER: base-images
+          BASE_IMAGE_NAME: ubuntu
 
       - name: build dotnet8 base image
         uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
-          tags: |
-            ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:22.04
-            ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:latest
-          labels: OpehShift="ubuntu22" ALM="dotnet8-sdk"
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
           push: true
-        env:
-          DOCKER_BUILDKIT: 1
-          ART_FOLDER: base-images
-          BASE_IMAGE_NAME: ubuntu
-          # list of tags to be used for the image
-          
-          
-
-  
+                  
   dotnet8-base-images:
     runs-on: ubuntu-latest
     needs: ubuntu-base-image
