@@ -45,8 +45,8 @@ jobs:
           file: ./dockerfiles/Dockerfile.ubuntu22
           push: true
           tags: |
-            ${{ env.IMAGE }}:"22.4"
-            ${{ env.IMAGE }}:"latest"
+            ${{ env.IMAGE }}:22.4
+            ${{ env.IMAGE }}:latest
           labels: |
             OpehShift="ubuntu22"
             ALM="dotnet8-sdk"
@@ -87,8 +87,8 @@ jobs:
           file: ./dockerfiles/Dockerfile.dotnet8-sdk
           push: true
           tags: |
-            ${{ env.IMAGE }}:"8"
-            ${{ env.IMAGE }}:"dotnet8-sdk"
+            ${{ env.IMAGE }}:8
+            ${{ env.IMAGE }}:dotnet8-sdk
           labels: |
             OpehShift="ubuntu22"
             ALM="dotnet8-sdk"
@@ -105,8 +105,8 @@ jobs:
           file: ./dockerfiles/Dockerfile.dotnet8-runtime
           push: true
           tags: |
-            ${{ env.IMAGE }}:"8-runtime"
-            ${{ env.IMAGE }}:"dotnet8-runtime"
+            ${{ env.IMAGE }}:8-runtime
+            ${{ env.IMAGE }}:dotnet8-runtime
         env:
           ART_FOLDER: dotnet
           IMAGE_NAME: dotnet8-runtime
@@ -120,8 +120,8 @@ jobs:
           file: ./dockerfiles/Dockerfile.dotnet8-aspnet
           push: true
           tags: |
-            ${{ env.IMAGE }}:"8-aspnet"
-            ${{ env.IMAGE }}:"dotnet8-aspnet"
+            ${{ env.IMAGE }}:8-aspnet
+            ${{ env.IMAGE }}:dotnet8-aspnet
         env:
           DOCKER_BUILDKIT: 1
           ART_FOLDER: dotnet
