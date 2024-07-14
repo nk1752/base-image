@@ -36,6 +36,21 @@ jobs:
           username: ${{ env.JF_USER }}
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
+
+      - name: metadata
+        id: metadata
+        uses: docker/metadata-action@v5.5.0
+        with:
+          images: |
+            ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
+            ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha
+
         
         # ************ base image ************
       - name: build dotnet8 base image
