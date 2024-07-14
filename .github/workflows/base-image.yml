@@ -45,7 +45,7 @@ jobs:
           file: ./dockerfiles/Dockerfile.ubuntu22
           push: true
           tags: |
-            ${{ env.IMAGE }}:22.4
+            ${{ env.IMAGE }}:22.04
             ${{ env.IMAGE }}:latest
           labels: |
             OpehShift=ubuntu22
