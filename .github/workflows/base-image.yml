@@ -45,13 +45,29 @@ jobs:
             ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
             ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
+            # branch event
+            type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
+            # tag event
+            type=ref,enable=true,priority=600,prefix=,suffix=,event=tag
+            # pull request event
+            type=ref,enable=true,priority=600,prefix=pr-,suffix=,event=pr
 
         
+      - name: build dotnet8 base image
+        uses: docker/build-push-action@v6.3.0
+        with:
+          context: .
+          file: ./dockerfiles/Dockerfile.ubuntu22
+          load: true
+          tags: |
+            ${{ env.IMAGE }}:22.04
+            ${{ env.IMAGE }}:latest
+          labels: |
+            OpenShift=ubuntu22
+            "ALM=dotnet8-sdk"
+        env:
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
+
         # ************ base image ************
       - name: build dotnet8 base image
         uses: docker/build-push-action@v6.3.0
