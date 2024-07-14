@@ -37,30 +37,23 @@ jobs:
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
 
-      - name: extract metadata
-        id: metadata
-        uses: docker/metadata-action@v5.5.0
-        with:
-          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}
-          tags: |
-            "22.4"
-            "latest"
-          labels: |
-            OpehShift="ubuntu22"
-            ALM="dotnet8-sdk"
-
-        env:
-          ART_FOLDER: base-images
-          BASE_IMAGE_NAME: ubuntu
-
+        # ************ base image ************
       - name: build dotnet8 base image
         uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
-          tags: ${{ steps.metadata.outputs.tags }}
-          labels: ${{ steps.metadata.outputs.labels }}
           push: true
+          tags: |
+            ${{ env.IMAGE }}:"22.4"
+            ${{ env.IMAGE }}:"latest"
+          labels: |
+            OpehShift="ubuntu22"
+            ALM="dotnet8-sdk"
+        env:
+          ART_FOLDER: base-images
+          IMAGE_NAME: ubuntu
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
                   
   dotnet8-base-images:
     runs-on: ubuntu-latest
@@ -76,7 +69,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4.1.6
 
-        # build docker image from Dockerfile
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.4.0
 
@@ -86,44 +78,53 @@ jobs:
           username: ${{ env.JF_USER }}
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
-
+      
+        # ************ sdk image ************
       - name: build dotnet8 sdk image
         uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: ./dockerfiles/Dockerfile.dotnet8-sdk
-          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
-          #tags: appli.jfrog.io/nk-docker/ubuntu22-base-image:v2.0.0
           push: true
-          labels: OpehShift="ubuntu22 base image" ALM="dotnet8-sdk"
+          tags: |
+            ${{ env.IMAGE }}:"8"
+            ${{ env.IMAGE }}:"dotnet8-sdk"
+          labels: |
+            OpehShift="ubuntu22"
+            ALM="dotnet8-sdk"
         env:
-          DOCKER_BUILDKIT: 1
           ART_FOLDER: dotnet
-          BASE_IMAGE_NAME: dotnet8-sdk
-          BASE_IMAGE_TAG: v8
-
+          IMAGE_NAME: dotnet8-sdk
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
+          
+        # ************ runtime image ************
       - name: build dotnet8 runtime image
         uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: ./dockerfiles/Dockerfile.dotnet8-runtime
-          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
           push: true
+          tags: |
+            ${{ env.IMAGE }}:"8-runtime"
+            ${{ env.IMAGE }}:"dotnet8-runtime"
         env:
-          DOCKER_BUILDKIT: 1
-          ART_FOLDER: alm/dotnet
-          BASE_IMAGE_NAME: dotnet8-runtime
-          BASE_IMAGE_TAG: v8
+          ART_FOLDER: dotnet
+          IMAGE_NAME: dotnet8-runtime
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
 
+        # ************ aspnet image ************
       - name: build dotnet8 aspnet image
         uses: docker/build-push-action@v6.3.0
         with:
           context: .
           file: ./dockerfiles/Dockerfile.dotnet8-aspnet
-          tags: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.BASE_IMAGE_NAME }}:${{ env.BASE_IMAGE_TAG }}
           push: true
+          tags: |
+            ${{ env.IMAGE }}:"8-aspnet"
+            ${{ env.IMAGE }}:"dotnet8-aspnet"
         env:
           DOCKER_BUILDKIT: 1
           ART_FOLDER: dotnet
-          BASE_IMAGE_NAME: dotnet8-aspnet
-          BASE_IMAGE_TAG: v8
+          IMAGE_NAME: dotnet8-aspnet
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/${{ env.ART_FOLDER }}/${{ env.IMAGE_NAME }}
+          
