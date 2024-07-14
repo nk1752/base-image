@@ -36,6 +36,21 @@ jobs:
           username: ${{ env.JF_USER }}
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
+        
+        # ************ metadata ************
+      - name: metadata
+        id: metadata
+        uses: docker/metadata-action@v5.0.0
+        with:
+          images: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=raw,key=version,value=22.04
+            ${{ env.IMAGE }}:22.04
+            ${{ env.IMAGE }}:latest
+        env:
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
 
         # ************ base image ************
       - name: build dotnet8 base image
@@ -44,15 +59,18 @@ jobs:
           context: .
           file: ./dockerfiles/Dockerfile.ubuntu22
           push: true
-          tags: |
-            ${{ env.IMAGE }}:22.04
-            ${{ env.IMAGE }}:latest
+          tags: ${{ steps.metadata.outputs.tags }}
           labels: |
-            OpehShift=ubuntu22
-            ALM="dotnet8-sdk"
+            OpenShift=ubuntu22
+            "ALM=dotnet8-sdk"
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
-                  
+
+      
+            
+         
+      
+  # ************ dotnet8 images job ************
   dotnet8-base-images:
     runs-on: ubuntu-latest
     needs: ubuntu-base-image
@@ -88,7 +106,7 @@ jobs:
             ${{ env.IMAGE }}:8
             ${{ env.IMAGE }}:dotnet8-sdk
           labels: |
-            OpehShift="ubuntu22"
+            "OpehShift=ubuntu22"
             ALM="dotnet8-sdk"
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/8-sdk
