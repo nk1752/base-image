@@ -92,9 +92,9 @@ jobs:
 
       - name: scan base image using jfrog cli
         run: |
-          jf docker scan ${{ env.image-to-scan }}:22.04
+          jf docker scan ${{ env.image-to-scan }}
         env:
-          image-to-scan: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
+          image-to-scan: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
 
         # ************ base image ************
       - name: build dotnet8 base image
