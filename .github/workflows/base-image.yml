@@ -27,6 +27,7 @@ jobs:
         run: |
           
           echo "BASE_IMAGE=${ART_REGISTORY}/${ART_REPO}/base-images/ubuntu:22.04" >> $GITHUB_ENV
+          echo base_image --> $BASE_IMAGE
           
       
       - name: checkout
@@ -53,9 +54,7 @@ jobs:
       - name: check if image exists
         run: |
           jf --version
-          jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
-          jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
-          jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/8-sdk:8
+          jf rt search $BASE_IMAGE --limit 1
         continue-on-error: true
 
       - name: metadata
