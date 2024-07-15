@@ -86,7 +86,6 @@ jobs:
 
       - name: check if image exists
         run: |
-          jf --version
           jf docker scan ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
           jf docker scan ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
 
