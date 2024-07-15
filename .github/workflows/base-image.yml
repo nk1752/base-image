@@ -25,6 +25,7 @@ jobs:
     steps:
 
       - name: setup env
+        shell: bash
         run: |
           echo ART_REGISTORY --> ${{ env.ART_REGISTORY }}
           echo "BASE_TEST=${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu" >> $GITHUB_ENV
@@ -49,13 +50,7 @@ jobs:
         env:
           JF_URL: ${{ env.ART_REGISTORY }}
           JF_ACCESS_TOKEN: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
-       
-
-      - name: check if image exists
-        run: |
-          jf --version
-          jf rt search $BASE_IMAGE --limit 1
-        continue-on-error: true
+          JF_USER: ${{ env.JF_USER }}
 
       - name: metadata
         id: metadata
@@ -88,6 +83,12 @@ jobs:
             "ALM=dotnet8-sdk"
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
+
+      - name: check if image exists
+        run: |
+          jf --version
+          jf docker scan ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
+          jf docker scan ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
 
         # ************ base image ************
       - name: build dotnet8 base image
