@@ -27,7 +27,7 @@ jobs:
         run: |
           
           echo "BASE_IMAGE=${ART_REGISTORY}/${ART_REPO}/base-images/ubuntu:22.04" >> $GITHUB_ENV
-          echo base_image --> $BASE_IMAGE
+          echo base_image --> ${{ env.BASE_IMAGE }}
           
       
       - name: checkout
