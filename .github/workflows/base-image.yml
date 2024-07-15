@@ -37,6 +37,21 @@ jobs:
           password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
           registry: ${{ env.ART_REGISTORY }}
 
+      - name: setup jfrog cli
+        uses: jfrog/setup-jfrog-cli-action@v1.2
+        with:
+          jfrog-cli-version: '1.47.1'
+          url: ${{ env.ART_REGISTORY }}
+          username: ${{ env.JF_USER }}
+          password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
+
+      - name: check if image exists
+        run: |
+          jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
+          jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
+          jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/8-sdk:8
+        continue-on-error: true
+
       - name: metadata
         id: metadata
         uses: docker/metadata-action@v5.5.0
