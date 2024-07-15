@@ -90,11 +90,16 @@ jobs:
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
 
+      - name: docker images
+        run: |
+          echo "*********** docker images ***********"
+          docker images
+
       - name: scan base image using jfrog cli
         run: |
           jf docker scan ${{ env.image-to-scan }}
         env:
-          image-to-scan: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
+          image-to-scan: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
 
         # ************ base image ************
       - name: build dotnet8 base image
