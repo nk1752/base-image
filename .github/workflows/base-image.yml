@@ -99,7 +99,7 @@ jobs:
         run: |
           jf docker scan ${{ env.image-to-scan }}
         env:
-          image-to-scan: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
+          image-to-scan: ./dockerfiles/Dockerfile.ubuntu22
 
         # ************ base image ************
       - name: build dotnet8 base image
