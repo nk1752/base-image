@@ -22,6 +22,12 @@ jobs:
       id-token: write
 
     steps:
+
+      - name: setup env
+        run: |
+          
+          echo "BASE_IMAGE=${ART_REGISTORY}/${ART_REPO}/base-images/ubuntu:22.04" >> $GITHUB_ENV
+          
       
       - name: checkout
         uses: actions/checkout@v4.1.6
@@ -38,15 +44,15 @@ jobs:
           registry: ${{ env.ART_REGISTORY }}
 
       - name: setup jfrog cli
-        uses: jfrog/setup-jfrog-cli-action@v1.2
-        with:
-          jfrog-cli-version: '1.47.1'
-          url: ${{ env.ART_REGISTORY }}
-          username: ${{ env.JF_USER }}
-          password: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          JF_URL: ${{ env.ART_REGISTORY }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
+       
 
       - name: check if image exists
         run: |
+          jf --version
           jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
           jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:latest
           jfrog rt s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/dotnet/8-sdk:8
