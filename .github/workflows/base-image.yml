@@ -10,6 +10,7 @@ env:
   ART_REGISTORY: "appli.jfrog.io"
   ART_REPO: "local-docker/alm"
   JF_USER: "nk1752@outlook.com"
+  BASE_IMAGE: "appli.jfrog.io/local-docker/alm/base-images/ubuntu:22.04"
 
 jobs:
   ubuntu-base-image:
@@ -25,8 +26,7 @@ jobs:
 
       - name: setup env
         run: |
-          
-          echo "BASE_IMAGE=${ART_REGISTORY}/${ART_REPO}/base-images/ubuntu:22.04" >> $GITHUB_ENV
+          echo ART_REGISTORY --> ${{ env.ART_REGISTORY }}
           echo base_image --> ${{ env.BASE_IMAGE }}
           
       
