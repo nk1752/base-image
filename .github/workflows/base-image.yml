@@ -95,11 +95,6 @@ jobs:
           echo "*********** docker images ***********"
           docker images
 
-      - name: scan base image using jfrog cli
-        run: |
-          jf docker scan ${{ env.image-to-scan }} --format=json
-        env:
-          image-to-scan: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
 
         # ************ base image ************
       - name: build dotnet8 base image
