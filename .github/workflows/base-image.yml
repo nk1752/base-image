@@ -100,6 +100,7 @@ jobs:
         run: |
           echo "*********** Jfrog Xray scan ***********"
           jf --version
+          jf docker scan moby/buildkit:latest
           
 
 
