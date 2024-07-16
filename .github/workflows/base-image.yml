@@ -95,6 +95,12 @@ jobs:
           echo "*********** docker images ***********"
           docker images
 
+      - name: Jfrog Xray scan
+        run: |
+          echo "*********** Jfrog Xray scan ***********"
+          jf --version
+          jf xr scan ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04 --fail=false
+
 
         # ************ base image ************
       - name: build dotnet8 base image

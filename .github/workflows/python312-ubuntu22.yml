@@ -13,7 +13,7 @@ on:
           - "true"
           - "false"
 env:
-  ART_REGISTORY: "rgnadeem.jfrog.io"
+  ART_REGISTORY: "appli.jfrog.io"
   PROJECT_NAME: "python312-ubuntu22"
   ART_REPO: "local-docker/nk/${ $PROJECT_NAME }"
   JF_USER: "nadeem.khalid@regions.com"
