@@ -94,13 +94,13 @@ jobs:
       - name: docker ps -a
         run: |
           echo "*********** docker images ***********"
-          docker ps
+          docker images ubuntu
 
       - name: Jfrog Xray scan
         run: |
           echo "*********** Jfrog Xray scan ***********"
           jf --version
-          jf docker scan --help
+          jf docker scan moby/buildkit:buildx-stable-1:
 
 
         # ************ base image ************
