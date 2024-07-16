@@ -90,7 +90,7 @@ jobs:
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
 
-      - name: docker images
+      - name: docker ps
         run: |
           echo "*********** docker images ***********"
           docker images
