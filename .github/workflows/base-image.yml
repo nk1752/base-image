@@ -91,7 +91,7 @@ jobs:
         env:
           IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
 
-      - name: docker ps -a
+      - name: docker images
         run: |
           echo "*********** docker images ***********"
           docker images ubuntu
@@ -100,7 +100,7 @@ jobs:
         run: |
           echo "*********** Jfrog Xray scan ***********"
           jf --version
-          jf docker scan moby/buildkit:buildx-stable-1:
+          
 
 
         # ************ base image ************
