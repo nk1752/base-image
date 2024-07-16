@@ -99,7 +99,7 @@ jobs:
         run: |
           echo "*********** Jfrog Xray scan ***********"
           jf --version
-          jf xr scan ./dockerfiles/Dockerfile.ubuntu22
+          jf docker s ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu:22.04
 
 
         # ************ base image ************
