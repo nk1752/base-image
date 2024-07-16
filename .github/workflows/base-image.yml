@@ -94,7 +94,7 @@ jobs:
       - name: docker images
         run: |
           echo "*********** docker images ***********"
-          docker images nadeem
+          docker images
 
       - name: Jfrog Xray scan
         run: |
