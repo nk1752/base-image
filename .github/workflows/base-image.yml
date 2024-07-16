@@ -49,7 +49,7 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4.1.3
         with:
           version: latest
-          download-repository: jfrog-cli-remote
+          
         env:
           JF_URL: ${{ env.ART_REGISTORY }}
           JF_ACCESS_TOKEN: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
