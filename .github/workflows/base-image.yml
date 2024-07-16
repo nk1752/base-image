@@ -89,12 +89,12 @@ jobs:
             OpenShift=ubuntu22
             "ALM=dotnet8-sdk"
         env:
-          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/nadeem
 
       - name: docker images
         run: |
           echo "*********** docker images ***********"
-          docker images ubuntu
+          docker images nadeem
 
       - name: Jfrog Xray scan
         run: |
