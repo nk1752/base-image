@@ -48,7 +48,8 @@ jobs:
       - name: setup jfrog cli
         uses: jfrog/setup-jfrog-cli@v4.1.3
         with:
-          version: 2.1.0
+          version: latest
+          download-repository: jfrog-cli-remote
         env:
           JF_URL: ${{ env.ART_REGISTORY }}
           JF_ACCESS_TOKEN: ${{ secrets.JF_DOCKER_ACCESS_TOKEN }}
@@ -93,13 +94,13 @@ jobs:
       - name: docker ps
         run: |
           echo "*********** docker images ***********"
-          docker images
+          docker ps
 
       - name: Jfrog Xray scan
         run: |
           echo "*********** Jfrog Xray scan ***********"
           jf --version
-          jf docker scan appli.jfrog.io/local-docker/alm/base-images/ubuntu:latest
+          jf docker scan --help
 
 
         # ************ base image ************
