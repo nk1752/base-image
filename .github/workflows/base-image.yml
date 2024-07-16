@@ -99,7 +99,7 @@ jobs:
         run: |
           echo "*********** Jfrog Xray scan ***********"
           jf --version
-          jf docker scan "appli.jfrog.io/artifactory/local-docker/alm/base-images/ubuntu/22.04/"
+          jf docker scan ubuntu:22.04
 
 
         # ************ base image ************
