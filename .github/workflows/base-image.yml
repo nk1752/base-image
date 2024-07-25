@@ -1,9 +1,6 @@
 name: dotnet8 -> ubuntu22
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 env:
@@ -24,7 +21,7 @@ jobs:
 
     steps:
 
-      - name: setup env
+      - name: setup & display env variables
         shell: bash
         run: |
           echo ART_REGISTORY --> ${{ env.ART_REGISTORY }}
@@ -89,7 +86,7 @@ jobs:
             OpenShift=ubuntu22
             "ALM=dotnet8-sdk"
         env:
-          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/nadeem
+          IMAGE: ${{ env.ART_REGISTORY }}/${{ env.ART_REPO }}/base-images/ubuntu
 
       - name: docker images
         run: |
