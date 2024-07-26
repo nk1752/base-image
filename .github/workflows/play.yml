@@ -50,6 +50,9 @@ jobs:
           # display branch name
           echo "BRANCH_NAME --> ${{ github.ref }}"
 
+          # echo time
+          echo "TIME --> ${{ github.job.started_at }}"
+
       - name: build vars
         run: |
           echo "BUILD_NUMBER=$BUILD_RUN_NUMBER" >> $GITHUB_ENV
