@@ -2,7 +2,7 @@ name: play
 
 on:
   schedule:
-    - cron: "*/15 * * * *" # every 5 minutes
+    - cron: "*/15 */1 * * *" # every 5 minutes
 
 env:
   ART_REGISTORY: "rgnadeem.jfrog.io"
