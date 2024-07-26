@@ -53,7 +53,7 @@ jobs:
           echo "BRANCH_NAME --> ${{ github.ref }}"
 
           # echo time
-          echo "TIME --> ${{ github.job.started_at }}"
+          echo "TIME --> $(date '+%H:%M:%S')"
 
       - name: build vars
         run: |
