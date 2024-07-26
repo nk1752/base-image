@@ -6,6 +6,8 @@ on:
     - cron: "*/45 */1 * * *" # At every 45th minute past every hour
     - cron: "5 6 * * MON-FRI" # At 06:05 on every day-of-week from Monday through Friday
 
+  workflow_dispatch:
+
 env:
   ART_REGISTORY: "rgnadeem.jfrog.io"
   PROJECT_NAME: "python312-ubuntu22"
