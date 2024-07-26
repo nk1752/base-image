@@ -1,9 +1,9 @@
 name: play
 
 on:
-  schedule:
+  schedule: # https://crontab.guru/#*/5_*_*_*_*
     - cron: "*/5 * * * *" # At every 15th minute past every hour on every day-of-month.
-    - cron: "*/37 */1 * * *" # At every 15th minute past every hour on every day-of-month.
+    - cron: "*/45 */1 * * *" # At every 15th minute past every hour on every day-of-month.
 
 env:
   ART_REGISTORY: "rgnadeem.jfrog.io"
